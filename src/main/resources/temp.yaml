@@ -1,0 +1,40 @@
+const_user: &user qq
+
+const_arr: &arr
+  - first
+  - s
+  - t
+
+server:
+  port:
+    8080
+  host: localhost
+database:
+  name: test_db
+  #test
+  const_pass: &pass fsdf
+  credentials:
+    user: *user
+    username: root
+    password: secret
+    #test1
+    smth: *arr
+    also:
+      - 1
+      - 2
+      - 3
+    another:
+      - one:
+          te:
+            fsd:
+              fds
+            das:
+              - sd
+              - d
+          ewt: fsd
+      - two: 2
+      - three: 3
+
+
+
+
