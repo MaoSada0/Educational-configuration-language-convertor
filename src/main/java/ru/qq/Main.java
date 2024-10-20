@@ -13,10 +13,18 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-
-        StringBuilder answer = new StringBuilder();
         String yamlPath = "C:\\Users\\user\\IdeaProjects\\config_task3\\src\\main\\resources\\temp.yaml";
         String outputFilePath = "C:\\Users\\user\\IdeaProjects\\config_task3\\src\\main\\resources\\temp.txt";
+
+
+        if(args.length > 1){
+            yamlPath = args[0];
+            outputFilePath = args[1];
+        }
+
+
+        StringBuilder answer = new StringBuilder();
+
         if(!YamlValidator.isValidYaml(yamlPath))
             return;
 
