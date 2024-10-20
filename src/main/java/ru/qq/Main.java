@@ -26,7 +26,7 @@ public class Main {
 
         writeToFile(strAns, outputFilePath);
 
-        System.out.println(strAns);
+        //System.out.println(strAns);
     }
 
     private static void helpFunc(StringBuilder answer, String filePath) throws IOException {
