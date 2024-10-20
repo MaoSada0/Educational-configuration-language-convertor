@@ -3,6 +3,8 @@ package ru.qq;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 import org.yaml.snakeyaml.nodes.*;
+
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.*;
 
@@ -38,7 +40,6 @@ public class YamlParser {
                     if (sequence.getAnchor() != null) {
                         return "&" + sequence.getAnchor() + " " + list;
                     }
-                    System.out.println(list);
                     return list;
                 } else if (node instanceof AnchorNode) {
                     AnchorNode anchor = (AnchorNode) node;
@@ -91,18 +92,17 @@ public class YamlParser {
             if (entry.getValue() instanceof Map<?, ?> subMap) {
                 flattenMapForListItems(newKey, (Map<String, Object>) subMap, results);
             } else {
-                // Store the final key-value mapping in the results
                 results.add(Collections.singletonMap(newKey, entry.getValue()));
             }
         }
     }
 
-    public static List<String> parse(String pathToYaml, Structure structure) {
+    public static List<String> parse(String pathToYaml) {
         List<String> ans = new ArrayList<>();
 
         Set<String> consts = new HashSet<>();
 
-        try (InputStream inputStream = YamlParser.class.getResourceAsStream(pathToYaml)) {
+        try (InputStream inputStream = new FileInputStream(pathToYaml)) {
             Map<String, Object> result = parseYaml(inputStream);
             result.forEach((key, value) -> {
                 if (value instanceof List v) {
@@ -121,7 +121,6 @@ public class YamlParser {
                             .toList();
 
 
-                    //System.out.println(key + " = " + updatedList);
                     ans.add(key + " = " + updatedList);
                 } else {
                     if(value instanceof String vStr){
@@ -152,9 +151,10 @@ public class YamlParser {
 
         vars = vars.stream()
                 .map(x -> {
-                    if (x.split("=").length > 1 && x.split("=")[1].trim().startsWith("&")) {
+
+                    if(x.contains("=") && x.substring(x.indexOf("=") + 1).trim().startsWith("&"))
                         return renameToDef(x);
-                    }
+
                     if (x.split("=").length > 1 && x.split("=")[1].trim().startsWith("*")) {
                         return renameToAbs(x);
                     }
@@ -175,14 +175,9 @@ public class YamlParser {
     }
 
     private static String renameToDef(String str){
-        String[] parts = str.split("=");
-        parts = Arrays.stream(parts)
-                .map(String::trim)
-                .toArray(String[]::new);
-
-        String name = parts[1].substring(1, parts[1].indexOf(" ")).trim();
-
-        String val = parts[1].substring(parts[1].indexOf(" ")).trim();
+        String requiredPart = str.substring(str.indexOf("=") + 1).trim();
+        String name = requiredPart.substring(1, requiredPart.indexOf(" "));
+        String val = requiredPart.substring(requiredPart.indexOf(" ") + 1);
 
         return  "(def " + name + " " + val + ");";
     }

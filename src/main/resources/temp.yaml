@@ -3,7 +3,7 @@ const_user: &user qq
 const_arr: &arr
   - first
   - s
-  - t
+  - t: fsdf
 
 server:
   port:
@@ -23,6 +23,7 @@ database:
       - 1
       - 2
       - 3
+      - gdfg
     another:
       - one:
           te:
