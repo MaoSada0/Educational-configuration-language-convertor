@@ -5,39 +5,39 @@
 (def pass fsdf);
 server
 {
-	port: 8080
-	host: localhost
+  port: 8080;
+  host: localhost;
 }
 database
 {
-	name: test_db
-	credentials
-	{
-		user: |user|
-		username: root
-		password: secret
-		smth: |arr|
-		also [
-			1: 1
-			2: 2
-			3: 3
-			gdfg: gdfg
-		]
-		another [
-			one
-			{
-				te
-				{
-					fsd: fds
-					das[
-						sd: sd
-						d: d
-					]
-				}
-				ewt: fsd
-			}
-			two: 2
-			three: 3
-		]
-	}
+  name: test_db;
+  credentials
+  {
+    user: |user|;
+    username: root;
+    password: secret;
+    smth: |arr|;
+    also [
+      1: 1;
+      2: 2;
+      3: 3;
+      gdfg: gdfg;
+    ]
+    another [
+      one
+      {
+        te
+        {
+          fsd: fds;
+          das[
+            sd: sd;
+            d: d;
+          ]
+        }
+        ewt: fsd;
+      }
+      two: 2;
+      three: 3;
+    ]
+  }
 }

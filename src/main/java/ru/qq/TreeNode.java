@@ -58,7 +58,7 @@ public class TreeNode {
             answer.append(generateSpaces(numSpaces));
             answer.append("]");
         } else if (isEnd) {
-            answer.append(": ").append(val);
+            answer.append(": ").append(val).append(";");
         }
 
         answer.append("\n");
@@ -101,7 +101,7 @@ public class TreeNode {
 
     private String generateSpaces(int numSpaces) {
         return IntStream.range(0, numSpaces)
-                .mapToObj(x -> "\t")
+                .mapToObj(x -> "  ")
                 .collect(Collectors.joining());
     }
 
